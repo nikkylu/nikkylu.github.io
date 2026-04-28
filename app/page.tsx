@@ -5,6 +5,22 @@ import { useEffect, useRef } from 'react'
 import { projects } from '@/lib/projects'
 import { withBasePath } from '@/lib/site'
 
+const projectDrifts = [
+  { x: [0, 18, -12, 8, -6, 0], y: [0, -14, 10, -8, 6, 0], duration: 18 },
+  { x: [0, -14, 18, -8, 10, 0], y: [0, 12, -16, 8, -6, 0], duration: 22 },
+  { x: [0, 12, -16, 6, 14, 0], y: [0, -10, 6, 14, -10, 0], duration: 20 },
+  { x: [0, -18, 10, -6, 16, 0], y: [0, 14, -8, 10, -6, 0], duration: 24 },
+  { x: [0, 14, -8, 18, -10, 0], y: [0, -12, 16, -6, 8, 0], duration: 19 },
+]
+
+const projectPositions = [
+  { left: '4%',  top: '5%'  },
+  { left: '54%', top: '10%' },
+  { left: '18%', top: '42%' },
+  { left: '58%', top: '48%' },
+  { left: '8%',  top: '72%' },
+]
+
 const floatingLinks = [
   {
     label: 'Work',
@@ -14,23 +30,23 @@ const floatingLinks = [
     duration: 17,
   },
   {
-    label: 'Music ↗',
+    label: 'Music >',
     href: 'https://music.apple.com/us/artist/dissonant-other/1895353245',
     style: { left: '62%', top: '20%' },
     drift: { x: [0, -16, 12, -20, 8, 0], y: [0, 14, -18, 10, -6, 0] },
     duration: 21,
     external: true,
   },
+  // {
+  //   label: 'Research ↗',
+  //   href: 'https://nikkylu.github.io/website',
+  //   style: { left: '42%', top: '52%' },
+  //   drift: { x: [0, 10, -20, 6, 14, 0], y: [0, -10, 6, 18, -12, 0] },
+  //   duration: 25,
+  //   external: true,
+  // },
   {
-    label: 'Research ↗',
-    href: 'https://nikkylu.github.io/website',
-    style: { left: '42%', top: '52%' },
-    drift: { x: [0, 10, -20, 6, 14, 0], y: [0, -10, 6, 18, -12, 0] },
-    duration: 25,
-    external: true,
-  },
-  {
-    label: 'Writing ↗',
+    label: 'Writing >',
     href: 'https://nikkylu.substack.com/',
     style: { left: '72%', top: '42%' },
     drift: { x: [0, -10, 16, -8, 4, 0], y: [0, 12, -8, 16, -6, 0] },
@@ -103,7 +119,8 @@ export default function Home() {
 
         <div style={{ position: 'relative', zIndex: 1 }}>
           <h1 className="display" style={{ fontSize: 'clamp(4.5rem, 13vw, 13rem)',
-            lineHeight: 0.88, letterSpacing: '-0.03em', marginBottom: '3rem' }}>
+         marginBottom: '3rem',
+            transform: 'scaleY(0.82)', transformOrigin: 'bottom left' }}>
             Nikky Lu
           </h1>
           <p style={{ fontSize: 13, letterSpacing: '0.28em', textTransform: 'uppercase',
@@ -114,64 +131,48 @@ export default function Home() {
       </section>
 
       {/* Work */}
-      <section id="work">
+      <section id="work" style={{ position: 'relative', minHeight: '220vh' }}>
         {projects.map((p, i) => {
-          const textFirst = i % 2 === 0
+          const drift = projectDrifts[i % projectDrifts.length]
+          const pos   = projectPositions[i % projectPositions.length]
           return (
             <Link key={p.slug} href={`/work/${p.slug}`}
-              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-              <div className="work-row">
-
-                {textFirst ? (
-                  <>
-                    <div style={{ padding: '4rem 3rem', alignSelf: 'start' }}>
-                      <p style={{ fontSize: 13, letterSpacing: '0.2em',
-                        color: 'var(--text-dim)', marginBottom: '2.5rem' }}>
-                        {String(i + 1).padStart(2, '0')}
-                        {p.status ? ' — WIP' : ''}
-                      </p>
-                      <h2 className="display" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.8rem)',
-                        lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.5rem' }}>
-                        {p.title}
-                      </h2>
-                      <p style={{ fontSize: 15, color: 'var(--text-muted)',
-                        letterSpacing: '0.1em' }}>{p.year}</p>
-                    </div>
-                    {p.cover
-                      ? <img src={p.cover} alt="" style={{ width: '100%', height: 'auto',
-                          display: 'block', filter: 'grayscale(8%)' }} />
-                      : <div style={{ background: 'var(--surface)' }} />}
-                  </>
-                ) : (
-                  <>
-                    {p.cover
-                      ? <img src={p.cover} alt="" style={{ width: '100%', height: 'auto',
-                          display: 'block', filter: 'grayscale(8%)' }} />
-                      : <div style={{ background: 'var(--surface)' }} />}
-                    <div style={{ padding: '4rem 3rem', alignSelf: 'start' }}>
-                      <p style={{ fontSize: 13, letterSpacing: '0.2em',
-                        color: 'var(--text-dim)', marginBottom: '2.5rem' }}>
-                        {String(i + 1).padStart(2, '0')}
-                        {p.status ? ' — WIP' : ''}
-                      </p>
-                      <h2 className="display" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.8rem)',
-                        lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.5rem' }}>
-                        {p.title}
-                      </h2>
-                      <p style={{ fontSize: 15, color: 'var(--text-muted)',
-                        letterSpacing: '0.1em' }}>{p.year}</p>
-                    </div>
-                  </>
+              style={{ textDecoration: 'none', color: 'inherit' }}>
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  ...pos,
+                  width: 'clamp(200px, 26vw, 320px)',
+                  cursor: 'crosshair',
+                }}
+                animate={drift}
+                transition={{ duration: drift.duration, repeat: Infinity, ease: 'easeInOut' }}
+                whileHover={{ opacity: 0.7 }}
+              >
+                {p.cover && (
+                  <img src={p.cover} alt="" style={{ width: '100%', height: 'auto',
+                    display: 'block', filter: 'grayscale(8%)' }} />
                 )}
-              </div>
+                <div style={{ padding: '1rem 0 0' }}>
+                  {p.status && (
+                    <p style={{ fontSize: 11, letterSpacing: '0.2em',
+                      color: 'var(--text-dim)', marginBottom: '0.5rem' }}>WIP</p>
+                  )}
+                  <h2 className="display" style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
+                    lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
+                    {p.title}
+                  </h2>
+                  <p style={{ fontSize: 12, color: 'var(--text-muted)',
+                    letterSpacing: '0.1em' }}>{p.year}</p>
+                </div>
+              </motion.div>
             </Link>
           )
         })}
       </section>
 
       {/* Bio */}
-      <section id="bio" style={{ padding: '10rem 3rem', maxWidth: 760,
-        borderTop: '1px solid var(--border)' }}>
+      <section id="bio" style={{ padding: '10rem 3rem', maxWidth: 760 }}>
         <p style={{ fontSize: 13, letterSpacing: '0.28em', textTransform: 'uppercase',
           color: 'var(--text-dim)', marginBottom: '3rem' }}>Bio</p>
         <p style={{ fontSize: '1.05rem', lineHeight: 2, color: 'var(--text-muted)' }}>
