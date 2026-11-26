@@ -23,7 +23,7 @@ export const projects: Project[] = [
     type: 'film',
     status: 'WIP',
     tagline: '16mm film and sound space installation',
-    description: `Work in Progress. 16mm film and sound space instillation exploring human, nature, cosmo as interconnected entities. The project invites viewers to contemplate their place in the cosmos and the intricate web of relationships that define our existence as particles.`,
+    description: `A film interrogating our position in the cosmos, and the web of relationships among nature, humanity, and matter that composes us.\n\nnight in the woods, under the stars, I saw a burning moon fall from the other side of the mountain\n\nthe rotation and revolution of planet earth\n\nI remain in a vast spacetime, where particles as the constitution of all beings in the universe interact with each other, even when humans are not consciously comprehending\n\nwhen the galaxy rotates above my head, when the sun rises, do humans still recognize and remember each other, concerning the organic form of particle compositions, standing still\n\ncan we hear each other sing?`,
     medium: '16mm film · SEM imagery · electronic sound',
     columns: 1,
 
